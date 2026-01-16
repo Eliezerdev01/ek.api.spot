@@ -32,7 +32,7 @@ class LiveServiceProvider(object):
         return rd
             
             
-    @app.route("/api/api-post-req/serv/api", methods=["POST"])
+    @app.route("/api/api-post-req/serv/api", methods=["GET","POST"])
     def get_my_api():
         get = ApiServerAllocator(data=LiveServiceProvider.data)
         data = get._api_encoder_()
