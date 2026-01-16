@@ -27,7 +27,7 @@ def index():
 @app.route("/api/api-post-req/serv/api", methods=["GET","POST"])
 def get_my_api():
     with open("api-json-samp.json", "r") as rd:
-        data = {"feed": rd.read()}
+        data = {"feed": json.load(rd)}
     return data
     
 app = WSGIMiddleware(app)
