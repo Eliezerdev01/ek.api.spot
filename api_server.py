@@ -38,4 +38,5 @@ class LiveServiceProvider(object):
         data = get._api_encoder_()
         return data
     
-app = WSGIMiddleware(LiveServiceProvider().app)
+mini = LiveServiceProvider()   
+app = WSGIMiddleware(mini.app)
