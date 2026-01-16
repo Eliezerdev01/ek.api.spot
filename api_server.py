@@ -16,27 +16,25 @@ class ApiServerAllocator(object):
     def _serv_decorder_(self):
         pass
     
-class LiveServiceProvider(object):
+
+app = Flask(__name__, template_folder='templates', static_folder='static')
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')  
+    
+@app.route("/")
+def index():
+    return "This server is temporarily moved and outdated, out of service but expected to be opened soon, thank you"
+    
+@app.route("/main")
+def main():
+    with open("api-json-samp.json", "r") as rd:
+        rd = {"feed": rd.read()}
+    return rd
+            
+@app.route("/api/api-post-req/serv/api", methods=["GET","POST"])
+def get_my_api():
     data = {}
-    app = Flask(__name__, template_folder='templates', static_folder='static')
-    app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')  
+    get = ApiServerAllocator(data=data)
+    data = get._api_encoder_()
+    return data
     
-    @app.route("/")
-    def index():
-        return "This server is temporarily moved and outdated, out of service but expected to be opened soon, thank you"
-    
-    @app.route("/main")
-    def main():
-        with open("api-json-samp.json", "r") as rd:
-            rd = {"feed": rd.read()}
-        return rd
-            
-            
-    @app.route("/api/api-post-req/serv/api", methods=["GET","POST"])
-    def get_my_api():
-        get = ApiServerAllocator(data=LiveServiceProvider.data)
-        data = get._api_encoder_()
-        return data
-    
-mini = LiveServiceProvider()   
-app = WSGIMiddleware(mini.app)
+app = WSGIMiddleware(app)
