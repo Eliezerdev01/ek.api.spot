@@ -19,7 +19,7 @@ class ApiServerAllocator(object):
 class LiveServiceProvider(object):
     data = {}
     app = Flask(__name__, template_folder='templates', static_folder='static')
-    app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'u,i-5"k-|90')  
+    app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')  
     
     @app.route("/")
     def index():
