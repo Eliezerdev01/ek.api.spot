@@ -24,17 +24,10 @@ app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 def index():
     return "This server is temporarily moved and outdated, out of service but expected to be opened soon, thank you"
     
-@app.route("/main")
-def main():
-    with open("api-json-samp.json", "r") as rd:
-        rd = {"feed": rd.read()}
-    return rd
-            
 @app.route("/api/api-post-req/serv/api", methods=["GET","POST"])
 def get_my_api():
-    data = {}
-    get = ApiServerAllocator(data=data)
-    data = get._api_encoder_()
+    with open("api-json-samp.json", "r") as rd:
+        data = {"feed": rd.read()}
     return data
     
 app = WSGIMiddleware(app)
